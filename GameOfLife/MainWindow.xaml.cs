@@ -34,7 +34,9 @@ namespace GameOfLife {
             for (var i = 0; i < width - 1; i++) {
                 for (var j = 0; j < height - 1; j++) {
                     var rec = new Rectangle() {
-                        Fill = new SolidColorBrush(Color.FromRgb((byte) (i * 3), (byte) (j * 3), (byte) (i * 3 - j * 3)))
+                        Fill = new SolidColorBrush(System.Windows.Media.Colors.DimGray),
+                        Stroke = new SolidColorBrush(System.Windows.Media.Colors.LightSlateGray),
+                        StrokeThickness = 0.3
                     };
                     this.Main.Children.Add(rec);
                     Grid.SetColumn(rec, i);
