@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -11,17 +12,20 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using GameOfLife.ViewModels;
 
-namespace GameOfLife {
+namespace GameOfLife.Views {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window {
-        public MainWindow() {
+    public partial class BoardView : Window {
+
+        public BoardView() {
             InitializeComponent();
 
-            int width = 43;
-            int height = 49;
+            var vm = new BoardViewModel();
+            var width = int.Parse(ConfigurationManager.AppSettings["width"]);
+            var height = int.Parse(ConfigurationManager.AppSettings["height"]);
 
             for (var i = 0; i < width - 1; i++) {
                 this.Main.ColumnDefinitions.Add(new ColumnDefinition());
@@ -34,15 +38,16 @@ namespace GameOfLife {
             for (var i = 0; i < width - 1; i++) {
                 for (var j = 0; j < height - 1; j++) {
                     var rec = new Rectangle() {
-                        Fill = new SolidColorBrush(System.Windows.Media.Colors.DimGray),
-                        Stroke = new SolidColorBrush(System.Windows.Media.Colors.LightSlateGray),
-                        StrokeThickness = 0.3
+                        Style = this.FindResource("CellStyle") as Style,
+                        DataContext = vm.Cells[i][j]
                     };
                     this.Main.Children.Add(rec);
                     Grid.SetColumn(rec, i);
                     Grid.SetRow(rec, j);
                 }
             }
+
+            vm.StartGame();
         }
     }
 }
