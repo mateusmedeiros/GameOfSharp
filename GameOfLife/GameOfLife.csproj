@@ -59,7 +59,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="Models\Cell.cs" />
-    <Compile Include="Utils\StringUtilities.cs" />
     <Compile Include="ViewModels\BoardViewModel.cs" />
     <Compile Include="Views\BoardView.xaml.cs">
       <DependentUpon>BoardView.xaml</DependentUpon>
